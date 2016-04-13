@@ -1,0 +1,131 @@
+<!--  Video Map Wrapper Starts  -->
+<div class="video-map-wrapper">
+
+    <!--  Action Container Starts  -->
+    <div class="action-container">
+        <ul class="video-actions">
+            <li class="map" ng-class="{'active':toggle == 'map'}" ng-show="isHaveCoords">
+                <a href class="btn-toggle grey" ng-click="toggleMapWithVideo('map')">
+                    <span>Map</span>
+                </a>
+            </li>
+            <li class="map" ng-class="{'active':toggle == 'map'}" ng-hide="isHaveCoords">
+                <button type="button" class="btn-toggle grey" popover-placement="bottom" popover-trigger="focus" popover="Geo location and coordinates not available for this video" popover-placement="bottom">
+                    <span>Map</span>
+                </button>
+            </li>
+            <li class="video" ng-class="{'active':toggle == 'video'}">
+                <a href class="btn-toggle grey" ng-click="toggleMapWithVideo('video')">
+                    <span>Video</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <!--  Action Container Ends  -->
+
+    <!--  Map Wrapper Starts  -->
+    <div  class="map-wrapper">
+        <div class="map-container shadow">
+            <div id="map-canvas"></div>
+        </div>
+    </div>
+    <div ng-hide="!toggleTool">
+        <div id="right-map-canvas"></div>
+    </div>
+    <!--  Map Wrapper Ends  -->
+
+    <!--  Video Wrapper Starts  -->
+    <div class="video-wrapper" data-videourl="{{ model.getVideoUrl()}}"  ng-class="{'toggle-left':toggle == 'video', 'toggle-right':toggle == 'map'}" ng-hide="toggle === 'map' && !toggleTool">
+        <div class="video-container shadow black-background"  ng-class="{demovideo: video.isDemo === true}">
+            <div ng-show="!model.isLiveVideo" id="flowplayer" class="flowplayer functional">
+                <video webkit-playsinline  class="video-edit-custom video-flowplayer-screen" preload="none">
+                    <source  type="video/mp4" allowfullscreen="true" ng-src="{{ model.getVideoUrl()}}">
+                    Your browser does not support the <code>Video</code> element.
+                </video>
+            </div>
+            <div ng-show="model.isLiveVideo === true" id="flowplayer-live"></div>
+        </div>
+    </div>
+    <!--  Video Wrapper Ends  -->
+
+    <!--  Video Info Wrapper Starts  -->
+    <div class="video-info-wrapper container-fluid" ng-class="{'custom-info-wrapper': !isHaveCoords}" ng-show="toggleTool">
+        <p class="date">Uploaded on {{ video.created.format("YYYY-MM-DD HH:mm") || 'Date not found'}}</p>
+
+        <!--  Video Tags Wrapper Starts  -->
+        <div class="video-tags-wrapper">
+            <div class="row video-tags">
+                <div class="col-xs-12">
+
+                    <!--  Profile Wrapper Starts  -->
+                    <div class="row profile-wrapper">
+                        <div class="col-sm-3 profile-image-wrapper">
+                            <a href="#">
+                                <img class="img-responsive" ng-src="{{loadedAvatar}}" src="../../../img/profile.png" alt="profile">
+                            </a>
+                        </div>
+                        <div class="col-sm-9">
+                            <h4 class="media-heading">
+                                <a ui-sref="profile({alias: video.user.alias})">{{video.user.alias}}</a>
+                            </h4>
+                            <ul class="list-inline detele-wrapper">
+                                <li class="hidden">
+                                    <button type="button" class="btn btn-rounded btn-follow" popover-placement="bottom" popover="Coming soon!" popover-trigger="focus">
+                                        <i class="fa fa-user-plus"></i>
+                                        <span>Follow</span>
+                                    </button>
+                                </li>
+                                <li class="hidden" ng-hide="nonUserVideo">
+                                    <a href="{{ video.downloadUrl}}" download="{{ video.title}}.mp4" class="grey btn-download">
+                                        <i class="fa fa-cloud-download"></i>
+                                        <span class="hidden">Download</span>
+                                    </a>
+                                </li>
+                                <li ng-hide="nonUserVideo" class="hidden"><delete-video video="video"></delete-video></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!--  Profile Wrapper Ends  -->
+
+                </div>
+                <div class="col-xs-12">
+                    <div class="shared-tags" ng-show="video.tags.length !== 0 || video.faces.length !== 0">
+                        <p class="tip">Click on the Thumbnails below to skip to a highlight in the video.</p>
+                        <div class="shared-tags-container">
+                            <div class="alert-share shared-tag-item fade in"
+                                 role="alert"
+                                 ng-click="clickTag(tag)"
+                                 ng-repeat="tag in video.tags"
+                                 style="background: url({{tag.thumbnail|| '../img/no-image-tag.png'}}) no-repeat center /cover">
+                                <span class="shared-tag-name" title="{{tag.name}}" ng-if="tag.name">
+                                    {{ tag.name}}
+                                </span>
+                            </div>
+                            <div class="alert-share shared-tag-item fade in"
+                                 role="alert"
+                                 ng-click="clickFace(face)"
+                                 ng-repeat="face in video.faces"
+                                 style="background: url({{face.thumbnail|| '../img/no-image-tag.png'}}) no-repeat center /cover">
+                                <span class="shared-tag-name face" title="{{face.name}}" ng-if="face.name !== ' ' && face.name">
+                                    {{ face.name}}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-show="video.tags.length === 0 && video.faces.length === 0">
+                        <p class="tip" style="font-size: 1em;">There are no tags/faces in this video.</p>
+                    </div>
+
+                    <!--  Video Description  -->
+                    <p class="custom-description" ng-hide="longDescription">{{ video.description}}</p>
+                </div>
+            </div>
+
+        </div>
+        <!--  Video Tags Wrapper Ends  -->
+
+    </div>
+    <!--  Video Info Wrapper Ends  -->
+
+</div>
+<!--  Video Map Wrapper Ends  -->

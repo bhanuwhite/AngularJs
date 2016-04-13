@@ -1,0 +1,31 @@
+<div class="col-md-4 col-md-offset-4">
+    <form class="log login-apen-custom" name="myForm" ng-submit="login()">
+        <h3>Login</h3>
+        <div ng-show="danger" class="alert alert-danger alert-dismissible resend" role="alert">
+            <button type="button" class="close" ng-click="hideDangerAlert()"><span aria-hidden="true">&times;</span></button>
+            {{danger}}<span><a ng-show="resendmail" style="cursor: pointer" ng-click="resendLink()"> get a new activation link.</a></span>
+        </div>
+
+        <div class="form-group div_pos" ng-class="{ 'has-error': myForm.email.$dirty && myForm.email.$error.required }">
+            <input type="email" class="form-control frm_grp" id="email" name="email" ng-model="email" placeholder="Email" required>
+            <span style="color:red" ng-show="myForm.email.$dirty && myForm.email.$invalid || user.email">
+                <span ng-show="myForm.email.$error.required" class="sp_pos6">Incorrect email.</span>
+                <span ng-show="myForm.email.$error.email || user.email" ng-hide="myForm.email.$error.required" class="sp_pos7">Invalid email address.</span>
+            </span>
+        </div>
+        <div class="form-group div_pos" ng-class="{ 'has-error': myForm.password.$dirty && myForm.password.$error.required }">
+            <input type="password" class="form-control frm_grp" id="password" name="password" ng-model="password" placeholder="Password" required>
+            <span style="color:red" ng-show="myForm.password.$dirty && myForm.password.$invalid || user.password">
+                <span ng-show="myForm.password.$error.required || user.password" class="sp_pos8">Incorrect Password</span>
+            </span>
+        </div>
+        <a class="help-block" ui-sref="forgetpassword">Forgot your password?</a>
+        <button type="submit" class="btn btn-success btn_join" ng-disabled="myForm.$invalid || dataLoading">Login</button>
+        <img ng-if="dataLoading" class="load-image" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="/>
+    </form>
+    <div class="text-center log-wrapper">
+        <p>New User?<br> 
+            <span><a ui-sref="join">Sign up here.</a></span>
+        </p>
+    </div>
+</div>

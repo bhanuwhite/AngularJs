@@ -1,0 +1,61 @@
+<div class="col-md-4 col-md-offset-4 register-form-custom">
+    <form class="log" name="myForm" ng-submit="join()" novalidate>
+        <h3>Join</h3>
+        <div ng-show="success" class="alert alert-success alert-dismissible" role="alert">
+            <button type="button" class="close" ng-click="hideSuccessAlert()"><span aria-hidden="true">&times;</span></button>
+            {{success}}
+        </div>
+        <div ng-show="danger" class="alert alert-danger alert-dismissible" role="alert">
+            <button type="button" class="close" ng-click="hideDangerAlert()"><span aria-hidden="true">&times;</span></button>
+            {{danger}}
+        </div>
+        <div class="form-group div_pos" ng-class="{ 'has-error': myForm.username.$dirty && myForm.username.$error.required }">
+            <span class="sp_pos">apen-designs.com/</span>
+            <input type="text" ng-blur="checkUserNameExists()"  class="form-control frm_grp" id="username" name="username" ng-trim="false" ng-pattern="/^[a-zA-Z\d\-\_]+$/" ng-model="user.username" placeholder="Pick a username" required>
+            <span style="color: red" ng-show="!myForm.username.$error.required && !myForm.username.$error.pattern && api.username" class="sp_pos1">Username already taken</span>
+            <span style="color: red" ng-show="myForm.username.$dirty && myForm.username.$invalid">
+                <span ng-show="myForm.username.$error.required" class="sp-pos-name">Username required</span>
+                <span ng-show="myForm.username.$error.pattern" class="sp-pos-pattern">Invalid Username(Space not allowed.)</span>
+            </span>
+        </div>
+        <div class="form-group div_pos" ng-class="{ 'has-error': myForm.email.$dirty && myForm.email.$error.required }">
+            <input type="email" class="form-control frm_grp" id="email" name="email" ng-model="user.email" ng-blur="checkEmailExists()" placeholder="Your Email" required>
+            <span style="color: red" ng-show="!myForm.email.$error.required && !myForm.email.$error.email && api.email" class="sp_pos2">Email already in use</span>
+            <span style="color:red" ng-show="myForm.email.$dirty && myForm.email.$invalid">
+                <span ng-show="myForm.email.$error.required" class="sp-pos-email">Email required</span>
+                <span ng-show="myForm.email.$error.email" class="sp_pos3">Invalid email address</span>
+            </span>
+        </div>
+        <div class="form-group div_pos" ng-class="{ 'has-error': myForm.password.$dirty && myForm.password.$error.required }">
+            <input type="password" class="form-control frm_grp" id="password" name="password" ng-pattern="/^[A-Za-z0-9]+$/i" ng-model="user.password" ng-minlength="8" placeholder="Choose a password" required>
+            <span style="color: red" ng-show="myForm.password.$dirty && myForm.password.$invalid">
+                <span ng-show="myForm.password.$error.required" class="sp1_pos4">Please enter password</span>
+                <span ng-show="myForm.password.$error.pattern" class="sp-pwd-pattern">Special character are not allowed!</span>
+                <span ng-show="!myForm.password.$error.pattern && myForm.password.$error.minlength" class="sp_pos4">Password must be at least 8 characters</span>
+            </span>
+        </div>
+        <div class="form-group div_pos" ng-class="{ 'has-error': myForm.password1.$dirty && myForm.password1.$error.required }">
+            <input type="password" class="form-control frm_grp" id="password1" name="password1" ng-model="user.password1" placeholder="Repeat password" required>
+            <span style="color: red" ng-show="!myForm.password1.$error.required && isMatch" class="sp-pos-pwd">Password do not match!</span>
+            <span style="color: red" ng-show="myForm.password1.$dirty && myForm.password1.$invalid">
+                <span ng-show="myForm.password1.$error.required" class="sp_pos5">Please re enter password</span>
+            </span>
+        </div>
+        <div class="form-group div_pos">
+            <label>Captcha*</label>
+            <div re-captcha ng-model="captcha" id="recaptcha_widget" style="display:none">
+                <div id="recaptcha_image"></div>
+                <span class="recaptcha_only_if_image">Enter the characters above:</span>
+
+                <input class="form-control frm_grp recaptcha-input-custom" type="text" id="recaptcha_response_field" name="recaptcha_response_field" />
+                <div class="reload-captcha-custom"><a href="javascript:Recaptcha.reload()">Get another CAPTCHA</a></div>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-success btn_join" ng-disabled="myForm.$invalid || isMatch || dataLoading">Join</button>
+        <img ng-if="dataLoading" class="load-image-join" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="/>
+    </form>
+    <div class="text-center log-wrapper">
+        <p>Already have an account?</p> 
+        <span><a ui-sref="signin"><b>Sign in here.</b></a></span>
+    </div>
+</div>
