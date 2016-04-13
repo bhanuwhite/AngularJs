@@ -1,5 +1,4 @@
 'use strict';
-
 angular.module('lifeLogger')
         .directive('sharemap', ['$timeout', 'GmapService', function ($timeout, GmapService) {
                 return {

@@ -4,7 +4,6 @@ app.factory('PostJson',function($http,$q){
     return({
         postData: postData
         });
-        
     function postData(apiUrl,data,headerData){
         var request = $http({
             method: "POST",

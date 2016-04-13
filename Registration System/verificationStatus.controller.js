@@ -14,8 +14,3 @@ angular.module('ApenDesigns')
                     console.log(response);
                 });
             }]);
-
-
-
-
-

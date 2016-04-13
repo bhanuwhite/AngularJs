@@ -1,5 +1,4 @@
 'use strict';
-
 angular.module('ApenDesigns')
         .controller('JoinController', ['$scope', '$rootScope', '$state', 'LoginAuth', '$timeout', function ($scope, $rootScope, $state, LoginAuth, $timeout) {
                 $scope.api = {

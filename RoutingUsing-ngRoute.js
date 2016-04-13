@@ -1,5 +1,4 @@
 'use strict';
-
 angular.module('ApenDesigns')
         .config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$locationProvider', 'reCAPTCHAProvider', function ($stateProvider, $urlRouterProvider, $httpProvider, $locationProvider, reCAPTCHAProvider) {
                 $stateProvider

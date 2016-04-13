@@ -1,5 +1,4 @@
 'use strict';
-
 angular.module('lifeLogger')
         .directive('previousPage', function ($window) {
                 return {

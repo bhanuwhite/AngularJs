@@ -11,8 +11,6 @@ var app = angular.module("MansysApp", [
     'ngLoadingSpinner'
 ]);
 
-
-
 app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', function ($stateProvider, $urlRouterProvider, $httpProvider) {
         $httpProvider.interceptors.push('myInterceptor');
         $urlRouterProvider.otherwise("/");

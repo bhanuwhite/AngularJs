@@ -1,8 +1,7 @@
 (function (angular, _, moment) {
     'use strict';
 
-    angular
-            .module('lifeLogger')
+    angular.module('lifeLogger')
             .factory('VideoService', videoService);
 
     videoService.$inject = [

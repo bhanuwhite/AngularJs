@@ -1,5 +1,4 @@
 'use strict';
-
 angular.module('ApenDesigns')
         .controller('SigninController', ['$scope', '$rootScope', '$state', 'LoginAuth', function ($scope, $rootScope, $state, LoginAuth) {
                 $scope.email = '';

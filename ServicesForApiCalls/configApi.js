@@ -1,5 +1,4 @@
 'use strict';
-
 angular.module('lifeLogger')
     .factory('Config', function(LIFELOGGER_API_URL) {
         return {
